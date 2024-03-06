@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,20 +26,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
+import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+
+
 
 @Composable
 fun  MoneyOverviewBox(){
-
-    var addedIncome by remember { mutableStateOf<Income?>(null) }
+    val viewModel: FinanceViewModel = viewModel()
+//    var addedIncome by remember { mutableStateOf<Income?>(null) }
+    val incomeRecord by viewModel.addedIncome.observeAsState()
 
     LaunchedEffect(key1 = true) {
 
-//retrieve the data
-        addedIncome =  MyApp.database.financeDao().fetchIncome()
-        Log.d(addedIncome.toString(),"............")
+
+            viewModel.fetchIncome()
+
+
     }
     Column (modifier = Modifier
         .fillMaxHeight(0.5f)

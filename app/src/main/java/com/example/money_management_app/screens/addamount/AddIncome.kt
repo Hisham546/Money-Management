@@ -23,12 +23,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
 import kotlinx.coroutines.launch
 
 @Composable
 fun AddIncome(){
+    val viewModel: FinanceViewModel = viewModel()
     var amount by remember {
         mutableIntStateOf(
             0
@@ -37,21 +39,6 @@ fun AddIncome(){
     val coroutineScope = rememberCoroutineScope()
 
 
-
-    suspend fun addIncome(income: Int) {
-        val checkDataExisting = MyApp.database.financeDao().fetchIncome()
-        if (checkDataExisting != null) {
-            MyApp.database.financeDao().updateIncome(1, income)
-        } else {
-
-            Log.wtf("inside else", ".......else......")
-
-            val data = Income(income = amount)
-            MyApp.database.financeDao().insertIncome(data)
-
-
-        }
-    }
 
 
 
@@ -80,7 +67,8 @@ fun AddIncome(){
         Button(
             onClick = {
                 coroutineScope.launch {
-                    addIncome(amount)
+//                    addIncome(amount)
+                    viewModel.addIncome(amount)
                 }
             },
 
