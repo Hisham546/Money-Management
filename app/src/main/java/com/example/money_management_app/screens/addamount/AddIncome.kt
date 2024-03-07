@@ -51,15 +51,15 @@ fun AddIncome(){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Text(text = "Amount")
+//        Text(text = "Amount")
         OutlinedTextField(
             value = amount.toString(),
             onValueChange = { text ->
                 amount = text.toIntOrNull() ?: 0
-            }, // Parse string to integer or default to 0
+            },
             modifier = Modifier
                 .width(250.dp)
-                .height(13.dp)
+//                .height(26.dp)
 
 
         )
