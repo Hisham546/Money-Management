@@ -17,9 +17,9 @@ interface FinanceDao {
     suspend fun fetchIncome(): Income?
 
 //
-   @Query("UPDATE IncomeDetails SET income = :income WHERE id = :id")
+@Query("UPDATE IncomeDetails SET income = :income, category = :category WHERE id = :id")
   // @Update
-  suspend fun  updateIncome(id:Int, income:Int)
+  suspend fun  updateIncome(id:Int, income:Int,category: String)
 
   @Delete
   suspend  fun deleteIncome(data: Income)

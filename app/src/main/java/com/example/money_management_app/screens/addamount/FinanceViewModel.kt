@@ -11,15 +11,15 @@ import kotlinx.coroutines.launch
 class FinanceViewModel:ViewModel() {
     private val financeDao = MyApp.database.financeDao()
     val addedIncome = MutableLiveData<Income?>()
-    suspend fun addIncome(income: Int) {
+    suspend fun addIncome(income: Int,category:String) {
         val checkDataExisting = MyApp.database.financeDao().fetchIncome()
         if (checkDataExisting != null) {
-            MyApp.database.financeDao().updateIncome(1, income)
+            MyApp.database.financeDao().updateIncome(1, income,category)
         } else {
 
 //            Log.wtf("inside else", ".......else......")
 
-            val data = Income(income = income)
+            val data = Income(income = income, category = category)
             MyApp.database.financeDao().insertIncome(data)
 
 

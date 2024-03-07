@@ -61,10 +61,10 @@ fun AddIncome(){
 
 
     Column (modifier = Modifier
-        .height(150.dp)
+        .height(400.dp)
         .width(330.dp),
-//        .background(Color.Green),
-        verticalArrangement = Arrangement.Center,
+
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 //        Text(text = "Amount")
@@ -80,33 +80,15 @@ fun AddIncome(){
 
 
         )
-        Spacer(modifier = Modifier.height(15.dp))
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    viewModel.addIncome(amount)
-                }
-            },
 
-            modifier = Modifier
-                .height(40.dp)
-                .width(150.dp),
-            colors = ButtonDefaults.buttonColors(Color.Black)
 
-        ) {
-            Text(
-                text = "Add Income",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 10.sp
-            )
-        }
             ExposedDropdownMenuBox(expanded = isExpanded,
                 onExpandedChange = {isExpanded=!isExpanded})
             
             {
                 TextField(
                     modifier = Modifier
+
                         .menuAnchor(),
                     value = selectedText,
                     onValueChange ={},
@@ -138,6 +120,27 @@ fun AddIncome(){
 
                 
             }
+
+        Button(
+            onClick = {
+                coroutineScope.launch {
+                    viewModel.addIncome(amount,selectedText)
+                }
+            },
+
+            modifier = Modifier
+                .height(40.dp)
+                .width(150.dp),
+            colors = ButtonDefaults.buttonColors(Color.Black)
+
+        ) {
+            Text(
+                text = "Add Income",
+                color = Color.White,
+                fontWeight = FontWeight.Medium,
+                fontSize = 10.sp
+            )
+        }
 
     }
 }

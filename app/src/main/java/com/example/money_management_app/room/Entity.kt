@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Income (
 @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val income:Int,
+    val category:String
 
 )
 
