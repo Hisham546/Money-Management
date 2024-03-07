@@ -46,7 +46,9 @@ fun AddAmount(navController: NavHostController){
 
         ){
             Icon(Icons.Filled.ArrowBack, "",
-                modifier = Modifier.padding(start = 30.dp))
+                modifier = Modifier.clickable { navController.navigate("home_screen") }
+                    .padding(start = 30.dp))
+
             Text(
                 text = "Add Record",
                 color = Color.Black,

@@ -17,7 +17,7 @@ class FinanceViewModel:ViewModel() {
             MyApp.database.financeDao().updateIncome(1, income)
         } else {
 
-            Log.wtf("inside else", ".......else......")
+//            Log.wtf("inside else", ".......else......")
 
             val data = Income(income = income)
             MyApp.database.financeDao().insertIncome(data)

@@ -46,8 +46,8 @@ fun AddIncome(){
 
     Column (modifier = Modifier
         .height(150.dp)
-        .width(330.dp)
-        .background(Color.Green),
+        .width(330.dp),
+//        .background(Color.Green),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
