@@ -26,7 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
@@ -78,13 +81,20 @@ fun  MoneyOverviewBox(){
 
                     Text(
                         text = "Income",
-                        modifier = Modifier,
+                        color = Color.Green,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 12.sp,
                     )
 
 
                     Text(
-                        text = "${incomeRecord?.income ?: "0:00"}",
-                        modifier = Modifier
+                        text = "₹${incomeRecord?.income ?: "0:00"}",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 17.sp,
+
                     )
                 }
             }
@@ -99,7 +109,13 @@ fun  MoneyOverviewBox(){
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Text(text = "Expense")
+                    Text(text = "Expense",
+
+                        color = Color.Red,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 12.sp,
+                        )
                 }
             }
         }

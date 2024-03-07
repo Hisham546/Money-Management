@@ -31,7 +31,7 @@ import com.example.money_management_app.ui.theme.WhiteShade
 
 @Composable
 fun AddAmount(navController: NavHostController){
-    var showAddIncome by remember { mutableStateOf(false) }
+    var showAddIncome by remember { mutableStateOf(true) }
     var showAddExpense by remember { mutableStateOf(false) }
     Column (modifier = Modifier
         .fillMaxWidth()
