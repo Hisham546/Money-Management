@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
@@ -64,16 +65,24 @@ fun HomeScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-                .background(Color.White),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxHeight(),
+
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.End
         )
 
         {
 
 
-            FloatingActionButton(onClick = { navController.navigate("add_amount_screen") }) {
+            FloatingActionButton(onClick = { navController.navigate("add_amount_screen") },
+                modifier = Modifier.padding(16.dp),
+
+                shape = CircleShape,
+
+
+            )
+
+            {
                 Icon(Icons.Filled.Add, "Floating action button.")
             }
 
