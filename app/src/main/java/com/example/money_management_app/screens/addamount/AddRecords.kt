@@ -30,21 +30,22 @@ import androidx.navigation.NavHostController
 import com.example.money_management_app.ui.theme.WhiteShade
 
 @Composable
-fun AddAmount(navController: NavHostController){
+fun AddAmount(navController: NavHostController) {
     var showAddIncome by remember { mutableStateOf(true) }
     var showAddExpense by remember { mutableStateOf(false) }
-    Column (modifier = Modifier
-        .fillMaxWidth()
-        .fillMaxHeight()
-        .background(Color.White)
-    ){
-        Row (modifier= Modifier
+    Column(
+        modifier = Modifier
             .fillMaxWidth()
-            .height(75.dp)
-            ,
+            .fillMaxHeight()
+            .background(Color.White)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(75.dp),
             verticalAlignment = Alignment.CenterVertically,
 
-        ){
+            ) {
             Icon(Icons.Filled.ArrowBack, "",
                 modifier = Modifier
                     .clickable { navController.navigate("home_screen") }
@@ -59,62 +60,70 @@ fun AddAmount(navController: NavHostController){
             )
 
         }
-        Column (modifier= Modifier
+        Column(
+            modifier = Modifier
 
-            .fillMaxWidth()
-            .height(35.dp)
-         ,
+                .fillMaxWidth()
+                .height(35.dp),
 
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment =Alignment.CenterHorizontally
-        ){
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
 
-        Row (modifier = Modifier
+            Row(
+                modifier = Modifier
 
-            .width(330.dp)
-            .height(30.dp)
-            .background(WhiteShade, shape = RoundedCornerShape(5.dp)), //  text = "${addedIncome?.income ?: "0:00"}",
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
+                    .width(330.dp)
+                    .height(30.dp)
+                    .background(
+                        WhiteShade,
+                        shape = RoundedCornerShape(5.dp)
+                    ), //  text = "${addedIncome?.income ?: "0:00"}",
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically,
 
-        ){
-            Text(
-                text = "Income",
-                color = Color.Black,
-                fontWeight = FontWeight.Medium,
-                fontSize = 13.sp,
-                modifier = Modifier.clickable {
-                    showAddIncome = true
-                    showAddExpense = false
-                }
-            )
-            Text(
-                text = "Expense",
-                color = Color.Black,
-                fontWeight = FontWeight.Medium,
-                fontSize = 13.sp,
-                modifier = Modifier.clickable {
-                    showAddExpense = true
-                    showAddIncome = false
-                }
-            )
-        }
+                ) {
+                Text(
+                    text = "Income",
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 13.sp,
+                    modifier = Modifier.clickable {
+                        showAddIncome = true
+                        showAddExpense = false
+                    }
+                )
+                Text(
+                    text = "Expense",
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 13.sp,
+                    modifier = Modifier.clickable {
+                        showAddExpense = true
+                        showAddIncome = false
+                    }
+                )
+            }
         }
         if (showAddIncome) {
-           Column(modifier=Modifier
-               .fillMaxWidth(),
-               verticalArrangement = Arrangement.Center,
-               horizontalAlignment = Alignment.CenterHorizontally) {
-               AddIncome()
-           }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                AddIncome()
+            }
 
         }
         if (showAddExpense) {
-            Column(modifier=Modifier
-                .fillMaxWidth(),
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 AddExpense()
             }
         }
