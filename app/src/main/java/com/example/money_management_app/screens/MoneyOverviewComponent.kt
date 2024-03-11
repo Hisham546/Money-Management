@@ -37,46 +37,51 @@ import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
 
 
-
 @Composable
-fun  MoneyOverviewBox(){
+fun MoneyOverviewBox() {
     val viewModel: FinanceViewModel = viewModel()
 //    var addedIncome by remember { mutableStateOf<Income?>(null) }
     val incomeRecord by viewModel.addedIncome.observeAsState()
+    val expenseRecord by viewModel.addedExpense.observeAsState()
 
     LaunchedEffect(key1 = true) {
 
 
-            viewModel.fetchIncome()
+        viewModel.fetchIncome()
+        viewModel.fetchExpense()
 
 
     }
-    Column (modifier = Modifier
-        .fillMaxHeight(0.5f)
-        .fillMaxWidth()
-        .background(Color.White)
-    ){
-
-        Row (modifier = Modifier
+    Column(
+        modifier = Modifier
+            .fillMaxHeight(0.5f)
             .fillMaxWidth()
-            .height(220.dp)
-            .background(BlackShade),
-                horizontalArrangement = Arrangement.SpaceEvenly
+            .background(Color.White)
+    ) {
 
-        ){
-            Box(modifier = Modifier
-                .height(90.dp)
-                .width(140.dp)
-                .background(Color.White, shape = RoundedCornerShape(10.dp)),
-                    contentAlignment = Alignment.Center
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+                .background(BlackShade),
+            horizontalArrangement = Arrangement.SpaceEvenly
+
+        ) {
+            Box(
+                modifier = Modifier
+                    .height(90.dp)
+                    .width(140.dp)
+                    .background(Color.White, shape = RoundedCornerShape(10.dp)),
+                contentAlignment = Alignment.Center
 
 
-
-
-            ){
+            ) {
                 //Arrangement.SpaceEvenly will give space for contents inside ,Alignment.CenterHorizontally will set contents to center
-                Column (verticalArrangement = Arrangement.SpaceEvenly, horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxSize()){
+                Column(
+                    verticalArrangement = Arrangement.SpaceEvenly,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize()
+                ) {
 
 
                     Text(
@@ -95,13 +100,14 @@ fun  MoneyOverviewBox(){
                         fontFamily = FontFamily.Serif,
                         fontSize = 17.sp,
 
-                    )
+                        )
                 }
             }
-            Box(modifier = Modifier
-                .height(90.dp)
-                .width(140.dp)
-                .background(Color.White, shape = RoundedCornerShape(10.dp)),
+            Box(
+                modifier = Modifier
+                    .height(90.dp)
+                    .width(140.dp)
+                    .background(Color.White, shape = RoundedCornerShape(10.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -109,12 +115,22 @@ fun  MoneyOverviewBox(){
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Text(text = "Expense",
+                    Text(
+                        text = "Expense",
 
                         color = Color.Red,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
                         fontSize = 12.sp,
+                    )
+                    Text(
+                        text = "₹${expenseRecord?.expense ?: "0:00"}",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif,
+                        fontSize = 17.sp,
+
+
                         )
                 }
             }

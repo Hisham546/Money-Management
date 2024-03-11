@@ -15,5 +15,6 @@ data class Income (
 @Entity(tableName = "ExpenseDetails")
 data class Expense(
     @PrimaryKey(autoGenerate = true) val id:Long =0,
-    val expense: Int
+    val expense: Int,
+    val category:String
 )

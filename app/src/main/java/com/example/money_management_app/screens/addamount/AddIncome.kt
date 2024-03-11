@@ -35,7 +35,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -101,6 +103,18 @@ fun AddIncome() {
                     .width(250.dp)
                     .height(55.dp)
             )
+            Text(
+                text = "Category",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                fontSize = 10.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .padding(start = 5.dp) // Add padding and align to start
+                    .fillMaxWidth(), // Fill the width of the column
+
+                )
 
             ExposedDropdownMenuBox(
                 expanded = isExpanded,

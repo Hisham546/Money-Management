@@ -11,17 +11,22 @@ import androidx.room.Update
 interface FinanceDao {
 
     @Insert
-  suspend fun insertIncome(data:Income)
+    suspend fun insertIncome(data: Income)
 
     @Query("SELECT * FROM IncomeDetails LIMIT 1")
     suspend fun fetchIncome(): Income?
 
-//
-@Query("UPDATE IncomeDetails SET income = :income, category = :category WHERE id = :id")
-  // @Update
-  suspend fun  updateIncome(id:Int, income:Int,category: String)
+    //
+    @Query("UPDATE IncomeDetails SET income = :income, category = :category WHERE id = :id")
+    // @Update
+    suspend fun updateIncome(id: Int, income: Int, category: String)
 
-  @Delete
-  suspend  fun deleteIncome(data: Income)
+    @Delete
+    suspend fun deleteIncome(data: Income)
 
+    @Insert
+    suspend fun insertExpense(data: Expense)
+
+    @Query("SELECT * FROM ExpenseDetails LIMIT 1")
+    suspend fun fetchExpense(): Expense?
 }

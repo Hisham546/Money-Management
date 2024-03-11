@@ -4,7 +4,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -29,7 +31,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,7 +43,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun AddExpense() {
     val viewModel: FinanceViewModel = viewModel()
-    var amount by remember {
+    var amountExpense by remember {
         mutableIntStateOf(
             0
         )
@@ -85,9 +89,9 @@ fun AddExpense() {
 //        Text(text = "Amount")
         OutlinedTextField(
             label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
-            value = amount.toString(),
+            value = amountExpense.toString(),
             onValueChange = { text ->
-                amount = text.toIntOrNull() ?: 0
+                amountExpense = text.toIntOrNull() ?: 0
             },
             textStyle = TextStyle(fontSize = 12.sp),
             modifier = Modifier
@@ -96,7 +100,18 @@ fun AddExpense() {
 
 
         )
+        Text(
+            text = "Category",
+            color = Color.Black,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Monospace,
+            fontSize = 10.sp,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(start = 7.dp) // Add padding and align to start
+                .fillMaxWidth(), // Fill the width of the column
 
+        )
 
         ExposedDropdownMenuBox(expanded = isExpanded,
 
@@ -156,7 +171,7 @@ fun AddExpense() {
         Button(
             onClick = {
                 coroutineScope.launch {
-                    viewModel.addIncome(amount, selectedText)
+                    viewModel.addExpense(amountExpense, selectedText)
                 }
             },
 
