@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,10 +13,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -40,14 +45,14 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddIncome(){
+fun AddIncome() {
     val viewModel: FinanceViewModel = viewModel()
     var amount by remember {
         mutableIntStateOf(
             0
         )
     }
-    val list = listOf("Salary","Savings","card")
+    val list = listOf("Salary", "Savings", "card")
     var selectedText by remember {
         mutableStateOf(list[0])
     }
@@ -62,99 +67,97 @@ fun AddIncome(){
 
 
 
-    Column (modifier = Modifier
-        .height(400.dp)
-        .width(330.dp),
+    ElevatedCard(
 
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ){
-//        Text(text = "Amount")
-        OutlinedTextField(
-            label = { Text("Enter Amount") },
-            value = amount.toString(),
-            onValueChange = { text ->
-                amount = text.toIntOrNull() ?: 0
-            },
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 1.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White, //Card background color
+            contentColor = Color.White  //Card content color,e.g.text
+        ),
+        modifier = Modifier
+            .height(400.dp)
+            .width(330.dp),
+        shape = RoundedCornerShape(8.dp),
+
+        ) {
+        Column(
             modifier = Modifier
-                .width(250.dp)
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Your content here
+            OutlinedTextField(
+                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
+                value = amount.toString(),
+                onValueChange = { text ->
+                    amount = text.toIntOrNull() ?: 0
+                },
+                textStyle = TextStyle(fontSize = 12.sp),
+                modifier = Modifier
+                    .width(250.dp)
+                    .height(55.dp)
+            )
 
-
-
-        )
-
-
-            ExposedDropdownMenuBox(expanded = isExpanded,
-                onExpandedChange = {isExpanded=!isExpanded})
-            
-            {
+            ExposedDropdownMenuBox(
+                expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }
+            ) {
                 TextField(
                     modifier = Modifier
-
                         .width(300.dp)
                         .height(45.dp)
-
                         .menuAnchor(),
                     shape = RoundedCornerShape(8.dp),
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         unfocusedIndicatorColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
-                        //unfocusedContainerColor = Color.White,
                         focusedContainerColor = Color.Transparent
                     ),
-
                     value = selectedText,
-                    onValueChange ={},
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)},
+                    onValueChange = {},
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
                     textStyle = TextStyle(fontSize = 12.sp)
-
                 )
 
-
-
-                    ExposedDropdownMenu(
-                        expanded = isExpanded,
-                        onDismissRequest = { isExpanded = false })
-                    {
-                        list.forEachIndexed { index, text ->
-
-                            DropdownMenuItem(
-                                text = { Text(text = text) },
-                                onClick = {
-                                    selectedText = list[index]
-                                    isExpanded = false
-                                },
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-
-                            )
-
-                        }
-
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }
+                ) {
+                    list.forEachIndexed { index, text ->
+                        DropdownMenuItem(
+                            text = { Text(text = text) },
+                            onClick = {
+                                selectedText = list[index]
+                                isExpanded = false
+                            },
+                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                        )
                     }
-
-                
+                }
             }
 
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    viewModel.addIncome(amount,selectedText)
-                }
-            },
-
-            modifier = Modifier
-                .height(40.dp)
-                .width(150.dp),
-            colors = ButtonDefaults.buttonColors(Color.Black)
-
-        ) {
-            Text(
-                text = "Add Income",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 10.sp
-            )
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        viewModel.addIncome(amount, selectedText)
+                    }
+                },
+                modifier = Modifier
+                    .height(40.dp)
+                    .width(150.dp),
+                colors = ButtonDefaults.buttonColors(Color.Black)
+            ) {
+                Text(
+                    text = "Add Income",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 10.sp
+                )
+            }
         }
-
     }
 }

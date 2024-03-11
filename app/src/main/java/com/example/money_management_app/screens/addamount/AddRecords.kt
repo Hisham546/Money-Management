@@ -46,7 +46,8 @@ fun AddAmount(navController: NavHostController){
 
         ){
             Icon(Icons.Filled.ArrowBack, "",
-                modifier = Modifier.clickable { navController.navigate("home_screen") }
+                modifier = Modifier
+                    .clickable { navController.navigate("home_screen") }
                     .padding(start = 30.dp))
 
             Text(
@@ -101,11 +102,21 @@ fun AddAmount(navController: NavHostController){
         }
         }
         if (showAddIncome) {
+           Column(modifier=Modifier
+               .fillMaxWidth(),
+               verticalArrangement = Arrangement.Center,
+               horizontalAlignment = Alignment.CenterHorizontally) {
+               AddIncome()
+           }
 
-            AddIncome()
         }
         if (showAddExpense) {
-            AddExpense()
+            Column(modifier=Modifier
+                .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                AddExpense()
+            }
         }
     }
 }

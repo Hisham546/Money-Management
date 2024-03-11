@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
@@ -42,7 +44,7 @@ fun AddExpense() {
             0
         )
     }
-    val list = listOf("Food","Beauty","Bills","Clothing","Education","Health")
+    val list = listOf("Food", "Beauty", "Bills", "Clothing", "Education", "Health")
     var selectedText by remember {
         mutableStateOf(list[0])
     }
@@ -57,23 +59,40 @@ fun AddExpense() {
 
 
 
-    Column (modifier = Modifier
-        .height(400.dp)
-        .width(330.dp),
+    ElevatedCard(
+
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 1.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White, //Card background color
+            contentColor = Color.White  //Card content color,e.g.text
+        ),
+        modifier = Modifier
+            .height(400.dp)
+            .width(330.dp),
+        shape = RoundedCornerShape(8.dp),
+
+        ) {
+    Column(
+        modifier = Modifier
+            .height(400.dp)
+            .width(330.dp),
 
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
 //        Text(text = "Amount")
         OutlinedTextField(
-            label = { Text("Enter Amount") },
+            label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
             value = amount.toString(),
             onValueChange = { text ->
                 amount = text.toIntOrNull() ?: 0
             },
+            textStyle = TextStyle(fontSize = 12.sp),
             modifier = Modifier
                 .width(250.dp)
-
+                .height(55.dp)
 
 
         )
@@ -81,7 +100,7 @@ fun AddExpense() {
 
         ExposedDropdownMenuBox(expanded = isExpanded,
 
-            onExpandedChange = {isExpanded=!isExpanded})
+            onExpandedChange = { isExpanded = !isExpanded })
 
         {
             TextField(
@@ -91,7 +110,7 @@ fun AddExpense() {
                     .height(45.dp)
 
                     .menuAnchor(),
-             shape = RoundedCornerShape(8.dp),
+                shape = RoundedCornerShape(8.dp),
                 colors = ExposedDropdownMenuDefaults.textFieldColors(
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
@@ -100,8 +119,8 @@ fun AddExpense() {
                 ),
 
                 value = selectedText,
-                onValueChange ={},
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)},
+                onValueChange = {},
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
                 textStyle = TextStyle(fontSize = 12.sp)
 
             )
@@ -111,7 +130,8 @@ fun AddExpense() {
             ExposedDropdownMenu(
                 expanded = isExpanded,
 
-                onDismissRequest = { isExpanded = false },)
+                onDismissRequest = { isExpanded = false },
+            )
 
             {
                 list.forEachIndexed { index, text ->
@@ -136,7 +156,7 @@ fun AddExpense() {
         Button(
             onClick = {
                 coroutineScope.launch {
-                    viewModel.addIncome(amount,selectedText)
+                    viewModel.addIncome(amount, selectedText)
                 }
             },
 
@@ -155,4 +175,5 @@ fun AddExpense() {
         }
 
     }
+}
 }
