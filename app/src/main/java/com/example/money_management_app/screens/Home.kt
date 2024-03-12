@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +23,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -38,6 +42,7 @@ import androidx.compose.runtime.livedata.observeAsState
 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -93,7 +98,7 @@ fun HomeScreen(navController: NavHostController) {
         ) {
             Column(
                 modifier = Modifier
-                    .align(Alignment.TopStart) // Align the column to top start (top left)
+                    .align(Alignment.TopStart)
                     .padding(16.dp)
 
             ) {
@@ -114,8 +119,8 @@ fun HomeScreen(navController: NavHostController) {
                                 defaultElevation = 1.dp
                             ),
                             colors = CardDefaults.cardColors(
-                                containerColor = Color.White, //Card background color
-                                contentColor = Color.White  //Card content color,e.g.text
+                                containerColor = Color.White,
+                                contentColor = Color.White
                             ),
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -124,29 +129,43 @@ fun HomeScreen(navController: NavHostController) {
 
                             shape = RoundedCornerShape(8.dp),
 
-                        ) { Row(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalArrangement = Arrangement.SpaceEvenly,
-                            verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                            Row(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                verticalAlignment = Alignment.CenterVertically,
 
-                        ) {
-                            Text(
-                                transaction.category,
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 15.sp,
-                            )
+                                ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(35.dp)
+                                        .clip(RoundedCornerShape(18.dp))
+                                        .background(if (transaction.type == "income") Color.Green else Color.Red)
+                                ) {
+                                    Icon(
+                                        if (transaction.type == "income") Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown,
+                                        contentDescription = "Floating action button.",
+                                        tint = Color.White,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
+                                Text(
+                                    transaction.category,
+                                    color = Color.Black,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 15.sp,
+                                )
 
-                            Text(
-                                text = "₹${transaction.amount}",
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily.Monospace,
-                                fontSize = 15.sp,
-                            )
+                                Text(
+                                    text = "₹${transaction.amount}",
+                                    color = if (transaction.type == "income") Color.Green else Color.Red,
+                                    fontWeight = FontWeight.Bold,
+                                    fontFamily = FontFamily.Monospace,
+                                    fontSize = 15.sp,
+                                )
 
-                        }
+                            }
                         }
                     }
                 }

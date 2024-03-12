@@ -161,7 +161,7 @@ fun AddIncome(navController: NavHostController) {
                     coroutineScope.launch {
                         try {
                             viewModel.addIncome(amount, selectedText)
-                            viewModel.addRecentTransaction(amount,selectedText)
+                            viewModel.addRecentTransaction(amount,selectedText,"income")
                         } finally {
                             navController.navigate("home_screen")
                         }

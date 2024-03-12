@@ -23,6 +23,7 @@ data class Expense(
 data class RecentTransactions(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val amount: Int,
-    val category: String
+    val category: String,
+    val type:String
 
 )

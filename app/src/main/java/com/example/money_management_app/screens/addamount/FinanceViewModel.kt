@@ -63,9 +63,9 @@ class FinanceViewModel : ViewModel() {
 
     //transaction history operations
 
-    suspend fun addRecentTransaction(amount: Int, category: String) {
+    suspend fun addRecentTransaction(amount: Int, category: String,type:String) {
         Log.wtf("inside recent", ".......else......")
-        val data = RecentTransactions(amount = amount, category = category)
+        val data = RecentTransactions(amount = amount, category = category, type = type)
         MyApp.database.financeDao().insertRecentTransaction(data)
     }
 
