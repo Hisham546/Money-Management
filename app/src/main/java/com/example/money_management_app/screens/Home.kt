@@ -44,6 +44,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -132,7 +133,7 @@ fun HomeScreen(navController: NavHostController) {
                             ) {
                             Row(
                                 modifier = Modifier.fillMaxSize(),
-                                horizontalArrangement = Arrangement.SpaceEvenly,
+                                horizontalArrangement = Arrangement.SpaceAround,
                                 verticalAlignment = Alignment.CenterVertically,
 
                                 ) {
@@ -151,14 +152,22 @@ fun HomeScreen(navController: NavHostController) {
                                 }
                                 Text(
                                     transaction.category,
+                                    style = MaterialTheme.typography.bodyMedium,
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = FontFamily.Monospace,
-                                    fontSize = 15.sp,
+                                    fontSize = with(LocalConfiguration.current) {
+                                        when (smallestScreenWidthDp) {
+                                            in 0..600 -> 16.sp // Small screens
+                                            in 601..720 -> 18.sp // Medium screens
+                                            else -> 20.sp // Large screens
+                                        }
+                                    }
                                 )
 
                                 Text(
                                     text = "₹${transaction.amount}",
+                                    style = MaterialTheme.typography.bodyMedium,
                                     color = if (transaction.type == "income") Color.Green else Color.Red,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = FontFamily.Monospace,
