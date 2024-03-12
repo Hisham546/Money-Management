@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 
 
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -18,10 +19,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -105,17 +109,44 @@ fun HomeScreen(navController: NavHostController) {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(recentTransactionList.orEmpty()) { transaction ->
-                        Column(
+                        ElevatedCard(
+                            elevation = CardDefaults.cardElevation(
+                                defaultElevation = 1.dp
+                            ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color.White, //Card background color
+                                contentColor = Color.White  //Card content color,e.g.text
+                            ),
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .height(90.dp)
+                                .padding(6.dp),
+
+                            shape = RoundedCornerShape(8.dp),
+
+                        ) { Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically,
+
                         ) {
                             Text(
+                                transaction.category,
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 15.sp,
+                            )
+
+                            Text(
                                 text = "₹${transaction.amount}",
+                                color = Color.Black,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Monospace,
+                                fontSize = 15.sp,
+                            )
 
-                                )
-                            Text(transaction.category)
-
+                        }
                         }
                     }
                 }

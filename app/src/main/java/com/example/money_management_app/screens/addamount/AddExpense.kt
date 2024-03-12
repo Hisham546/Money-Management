@@ -174,6 +174,7 @@ fun AddExpense(navController: NavHostController) {
                     coroutineScope.launch {
                         try {
                             viewModel.addExpense(amountExpense, selectedText)
+                            viewModel.addRecentTransaction(amountExpense,selectedText)
                         } finally {
                             navController.navigate("home_screen")
                         }
