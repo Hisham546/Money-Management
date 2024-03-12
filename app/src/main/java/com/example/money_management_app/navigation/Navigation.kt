@@ -8,7 +8,7 @@ import com.example.money_management_app.screens.addamount.AddAmount
 import com.example.money_management_app.screens.HomeScreen
 
 @Composable
-fun NavGraph (navController: NavHostController) {
+fun NavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screens.Home.route
@@ -17,9 +17,9 @@ fun NavGraph (navController: NavHostController) {
         composable(route = Screens.Home.route) {
             HomeScreen(navController)
         }
-composable(route = Screens.AddAmount.route){
-    AddAmount(navController)
-}
+        composable(route = Screens.AddAmount.route) {
+            AddAmount(navController)
+        }
     }
 
 }

@@ -113,7 +113,7 @@ fun AddAmount(navController: NavHostController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AddIncome()
+                AddIncome(navController)
             }
 
         }
@@ -124,7 +124,7 @@ fun AddAmount(navController: NavHostController) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AddExpense()
+                AddExpense(navController)
             }
         }
     }

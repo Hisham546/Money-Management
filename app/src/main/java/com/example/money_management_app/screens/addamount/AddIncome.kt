@@ -41,13 +41,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddIncome() {
+fun AddIncome(navController: NavHostController) {
     val viewModel: FinanceViewModel = viewModel()
     var amount by remember {
         mutableIntStateOf(
@@ -156,8 +157,13 @@ fun AddIncome() {
 
             Button(
                 onClick = {
+
                     coroutineScope.launch {
-                        viewModel.addIncome(amount, selectedText)
+                        try {
+                            viewModel.addIncome(amount, selectedText)
+                        } finally {
+                            navController.navigate("home_screen")
+                        }
                     }
                 },
                 modifier = Modifier

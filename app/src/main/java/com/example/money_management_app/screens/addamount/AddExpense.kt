@@ -37,11 +37,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddExpense() {
+fun AddExpense(navController: NavHostController) {
     val viewModel: FinanceViewModel = viewModel()
     var amountExpense by remember {
         mutableIntStateOf(
@@ -78,117 +79,122 @@ fun AddExpense() {
         shape = RoundedCornerShape(8.dp),
 
         ) {
-    Column(
-        modifier = Modifier
-            .height(400.dp)
-            .width(330.dp),
+        Column(
+            modifier = Modifier
+                .height(400.dp)
+                .width(330.dp),
 
-        verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 //        Text(text = "Amount")
-        OutlinedTextField(
-            label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
-            value = amountExpense.toString(),
-            onValueChange = { text ->
-                amountExpense = text.toIntOrNull() ?: 0
-            },
-            textStyle = TextStyle(fontSize = 12.sp),
-            modifier = Modifier
-                .width(250.dp)
-                .height(55.dp)
-
-
-        )
-        Text(
-            text = "Category",
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace,
-            fontSize = 10.sp,
-            textAlign = TextAlign.Start,
-            modifier = Modifier
-                .padding(start = 7.dp) // Add padding and align to start
-                .fillMaxWidth(), // Fill the width of the column
-
-        )
-
-        ExposedDropdownMenuBox(expanded = isExpanded,
-
-            onExpandedChange = { isExpanded = !isExpanded })
-
-        {
-            TextField(
+            OutlinedTextField(
+                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
+                value = amountExpense.toString(),
+                onValueChange = { text ->
+                    amountExpense = text.toIntOrNull() ?: 0
+                },
+                textStyle = TextStyle(fontSize = 12.sp),
                 modifier = Modifier
+                    .width(250.dp)
+                    .height(55.dp)
 
-                    .width(300.dp)
-                    .height(45.dp)
 
-                    .menuAnchor(),
-                shape = RoundedCornerShape(8.dp),
-                colors = ExposedDropdownMenuDefaults.textFieldColors(
-                    unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    //unfocusedContainerColor = Color.White,
-                    focusedContainerColor = Color.Transparent
-                ),
-
-                value = selectedText,
-                onValueChange = {},
-                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-                textStyle = TextStyle(fontSize = 12.sp)
+            )
+            Text(
+                text = "Category",
+                color = Color.Black,
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace,
+                fontSize = 10.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .padding(start = 7.dp) // Add padding and align to start
+                    .fillMaxWidth(), // Fill the width of the column
 
             )
 
+            ExposedDropdownMenuBox(expanded = isExpanded,
 
-
-            ExposedDropdownMenu(
-                expanded = isExpanded,
-
-                onDismissRequest = { isExpanded = false },
-            )
+                onExpandedChange = { isExpanded = !isExpanded })
 
             {
-                list.forEachIndexed { index, text ->
+                TextField(
+                    modifier = Modifier
 
-                    DropdownMenuItem(
-                        text = { Text(text = text) },
-                        onClick = {
-                            selectedText = list[index]
-                            isExpanded = false
-                        },
-                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                        .width(300.dp)
+                        .height(45.dp)
 
-                    )
+                        .menuAnchor(),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ExposedDropdownMenuDefaults.textFieldColors(
+                        unfocusedIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        //unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.Transparent
+                    ),
+
+                    value = selectedText,
+                    onValueChange = {},
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    textStyle = TextStyle(fontSize = 12.sp)
+
+                )
+
+
+
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+
+                    onDismissRequest = { isExpanded = false },
+                )
+
+                {
+                    list.forEachIndexed { index, text ->
+
+                        DropdownMenuItem(
+                            text = { Text(text = text) },
+                            onClick = {
+                                selectedText = list[index]
+                                isExpanded = false
+                            },
+                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+
+                        )
+
+                    }
 
                 }
+
 
             }
 
+            Button(
+                onClick = {
+                    coroutineScope.launch {
+                        try {
+                            viewModel.addExpense(amountExpense, selectedText)
+                        } finally {
+                            navController.navigate("home_screen")
+                        }
+
+                    }
+                },
+
+                modifier = Modifier
+                    .height(40.dp)
+                    .width(150.dp),
+                colors = ButtonDefaults.buttonColors(Color.Black)
+
+            ) {
+                Text(
+                    text = "Add Expense",
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 10.sp
+                )
+            }
 
         }
-
-        Button(
-            onClick = {
-                coroutineScope.launch {
-                    viewModel.addExpense(amountExpense, selectedText)
-                }
-            },
-
-            modifier = Modifier
-                .height(40.dp)
-                .width(150.dp),
-            colors = ButtonDefaults.buttonColors(Color.Black)
-
-        ) {
-            Text(
-                text = "Add Expense",
-                color = Color.White,
-                fontWeight = FontWeight.Medium,
-                fontSize = 10.sp
-            )
-        }
-
     }
-}
 }
