@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -53,20 +54,17 @@ fun HomeScreen(navController: NavHostController) {
     val viewModel: FinanceViewModel = viewModel()
 
 
+    val recentTransactionList by viewModel.transactionHistory.observeAsState()
 
-    val incomeRecord by viewModel.addedIncome.observeAsState()
-    val expenseRecord by viewModel.addedExpense.observeAsState()
 
-//    val transactionsList: List<Transaction> = (incomeRecord ?: emptyList<Income>()) + (expenseRecord ?: emptyList<Expense>())
-//
-//    LaunchedEffect(key1 = true) {
-//
-//
-//        viewModel.fetchIncome()
-//        viewModel.fetchExpense()
-//
-//
-//    }
+
+    LaunchedEffect(key1 = true) {
+
+
+        viewModel.fetchRecentTransaction()
+
+
+    }
 
     Column(modifier = Modifier) {
 
@@ -103,29 +101,24 @@ fun HomeScreen(navController: NavHostController) {
                     fontSize = 15.sp
                 )
 
-//                LazyColumn(
-//                    modifier = Modifier.fillMaxSize()
-//                ) {
-//                    items(transactionsList) { transaction ->
-//                        Column(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(16.dp)
-//                        ) {
-//                            // Display transaction details based on its type (Income or Expense)
-//                            Text(
-//                                text = if (transaction is Income) "Income: ${transaction.amount}" else "Expense: ${transaction.amount}",
-//                                color = if (transaction is Income) Color.Green else Color.Red,
-//                                fontWeight = FontWeight.Bold
-//                            )
-//                            Text(
-//                                text = "Category: ${transaction.category}",
-//                                color = Color.Black
-//                            )
-//
-//                        }
-//                    }
-//                }
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(recentTransactionList.orEmpty()) { transaction ->
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                        ) {
+                            Text(
+                                text = "₹${transaction.amount}",
+
+                                )
+                            Text(transaction.category)
+
+                        }
+                    }
+                }
             }
 
             Column(
@@ -135,16 +128,16 @@ fun HomeScreen(navController: NavHostController) {
             ) {
                 FloatingActionButton(
                     onClick = { navController.navigate("add_amount_screen") },
-                            containerColor = MaterialTheme.colorScheme.background,
+                    containerColor = MaterialTheme.colorScheme.background,
                     modifier = Modifier.padding(16.dp),
                     shape = CircleShape,
 
-                ) {
+                    ) {
                     Icon(Icons.Filled.Add, "Floating action button.")
                 }
             }
         }
 
     }
-    }
+}
 

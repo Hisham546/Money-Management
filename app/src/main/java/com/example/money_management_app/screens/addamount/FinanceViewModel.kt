@@ -7,16 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.money_management_app.room.Expense
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
+import com.example.money_management_app.room.RecentTransactions
 import kotlinx.coroutines.launch
 
-class FinanceViewModel:ViewModel() {
+class FinanceViewModel : ViewModel() {
     private val financeDao = MyApp.database.financeDao()
+
     val addedIncome = MutableLiveData<Income?>()
     val addedExpense = MutableLiveData<Expense?>()
-    suspend fun addIncome(income: Int,category:String) {
+    val transactionHistory = MutableLiveData<List<RecentTransactions>>()
+
+    //Income operations
+    suspend fun addIncome(income: Int, category: String) {
         val checkDataExisting = MyApp.database.financeDao().fetchIncome()
         if (checkDataExisting != null) {
-            MyApp.database.financeDao().updateIncome(1, income,category)
+            MyApp.database.financeDao().updateIncome(1, income, category)
         } else {
 
 //            Log.wtf("inside else", ".......else......")
@@ -34,25 +39,41 @@ class FinanceViewModel:ViewModel() {
         }
     }
 
-    suspend fun addExpense(expense: Int,category:String) {
+    //Expense operations
+    suspend fun addExpense(expense: Int, category: String) {
 //        val checkDataExisting = MyApp.database.financeDao().fetchIncome()
 //        if (checkDataExisting != null) {
 //            MyApp.database.financeDao().updateIncome(1, income,category)
 //        } else {
 
-          Log.wtf("inside addExpense", ".......else......")
+        //  Log.wtf("inside addExpense", ".......else......")
 
-            val data = Expense(expense = expense, category = category)
-            MyApp.database.financeDao().insertExpense(data)
+        val data = Expense(expense = expense, category = category)
+        MyApp.database.financeDao().insertExpense(data)
 
 
 //        }
     }
+
     fun fetchExpense() {
         viewModelScope.launch {
             addedExpense.value = financeDao.fetchExpense()
         }
     }
 
+    //transaction history operations
 
+    suspend fun addRecentTransaction(amount: Int, category: String) {
+        Log.wtf("inside recent", ".......else......")
+        val data = RecentTransactions(amount = amount, category = category)
+        MyApp.database.financeDao().insertRecentTransaction(data)
+    }
+
+    fun fetchRecentTransaction() {
+        viewModelScope.launch {
+            transactionHistory.value = financeDao.getAllRecentTransactions()
+
+        }
+
+    }
 }
