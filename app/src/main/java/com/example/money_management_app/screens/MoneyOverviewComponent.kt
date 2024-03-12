@@ -56,7 +56,9 @@ fun MoneyOverviewBox() {
         modifier = Modifier
             .fillMaxHeight(0.5f)
             .fillMaxWidth()
-            .background(Color.White)
+            .background(BlackShade),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Row(
@@ -64,7 +66,8 @@ fun MoneyOverviewBox() {
                 .fillMaxWidth()
                 .height(220.dp)
                 .background(BlackShade),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
 
         ) {
             Box(
