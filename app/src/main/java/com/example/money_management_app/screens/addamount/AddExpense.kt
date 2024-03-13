@@ -92,7 +92,12 @@ fun AddExpense(navController: NavHostController) {
         ) {
 //        Text(text = "Amount")
             OutlinedTextField(
-                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp, color = Color.Black)) },
+                label = {
+                    Text(
+                        "Enter Amount",
+                        style = TextStyle(fontSize = 10.sp, color = Color.Black)
+                    )
+                },
                 value = amountExpense.toString(),
                 onValueChange = { text ->
                     amountExpense = text.toIntOrNull() ?: 0
@@ -187,17 +192,17 @@ fun AddExpense(navController: NavHostController) {
                     coroutineScope.launch {
                         try {
                             viewModel.addExpense(amountExpense, selectedText)
-                            viewModel.addRecentTransaction(amountExpense,selectedText,"expense")
+                            viewModel.addRecentTransaction(amountExpense, selectedText, "expense")
                         } finally {
                             navController.navigate("home_screen")
                         }
 
                     }
                 },
-
+                shape = RoundedCornerShape(8.dp),
                 modifier = Modifier
-                    .height(40.dp)
-                    .width(150.dp),
+                    .height(50.dp)
+                    .width(280.dp),
                 colors = ButtonDefaults.buttonColors(Color.Black)
 
             ) {

@@ -60,6 +60,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.7.7")
 
 
+
    //room dependencies
     implementation ("androidx.room:room-runtime:2.6.1")
  //   ksp ("androidx.room:room-compiler:2.6.1")

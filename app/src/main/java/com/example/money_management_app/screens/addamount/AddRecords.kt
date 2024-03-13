@@ -109,6 +109,7 @@ fun AddAmount(navController: NavHostController) {
         if (showAddIncome) {
             Column(
                 modifier = Modifier
+                    .height(450.dp)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -120,7 +121,8 @@ fun AddAmount(navController: NavHostController) {
         if (showAddExpense) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .height(450.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
