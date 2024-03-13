@@ -41,18 +41,21 @@ class FinanceViewModel : ViewModel() {
 
     //Expense operations
     suspend fun addExpense(expense: Int, category: String) {
-//        val checkDataExisting = MyApp.database.financeDao().fetchIncome()
-//        if (checkDataExisting != null) {
-//            MyApp.database.financeDao().updateIncome(1, income,category)
-//        } else {
+        val currentExpense = MyApp.database.financeDao().fetchExpense()
 
-        //  Log.wtf("inside addExpense", ".......else......")
+        if (currentExpense != null) {
+            val newTotalExpense = currentExpense.expense + expense
+          //  val data = Expense(expense = newTotalExpense, category = category)
+            MyApp.database.financeDao().updateExpense(1,newTotalExpense,category)
+        } else {
 
-        val data = Expense(expense = expense, category = category)
-        MyApp.database.financeDao().insertExpense(data)
+            //  Log.wtf("inside addExpense", ".......else......")
+
+            val data = Expense(expense = expense, category = category)
+            MyApp.database.financeDao().insertExpense(data)
 
 
-//        }
+        }
     }
 
     fun fetchExpense() {
@@ -63,8 +66,8 @@ class FinanceViewModel : ViewModel() {
 
     //transaction history operations
 
-    suspend fun addRecentTransaction(amount: Int, category: String,type:String) {
-        Log.wtf("inside recent", ".......else......")
+    suspend fun addRecentTransaction(amount: Int, category: String, type: String) {
+
         val data = RecentTransactions(amount = amount, category = category, type = type)
         MyApp.database.financeDao().insertRecentTransaction(data)
     }

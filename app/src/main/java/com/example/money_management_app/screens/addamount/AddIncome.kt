@@ -171,11 +171,15 @@ fun AddIncome(navController: NavHostController) {
                 ExposedDropdownMenu(
                     expanded = isExpanded,
                     onDismissRequest = { isExpanded = false },
-
+                    modifier = Modifier
+                        .background(Color.White)
                 ) {
                     list.forEachIndexed { index, text ->
                         DropdownMenuItem(
-                            text = { Text(text = text) },
+                            text = { Text(text = text,
+                                fontSize = 12.sp,
+                                color = Color.Black
+                            ) },
                             onClick = {
                                 selectedText = list[index]
                                 isExpanded = false

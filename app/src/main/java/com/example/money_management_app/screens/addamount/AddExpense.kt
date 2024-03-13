@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -84,8 +85,8 @@ fun AddExpense(navController: NavHostController) {
         ) {
         Column(
             modifier = Modifier
-                .height(400.dp)
-                .width(330.dp),
+                .fillMaxSize()
+                .padding(16.dp),
 
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -126,7 +127,7 @@ fun AddExpense(navController: NavHostController) {
                 fontSize = 10.sp,
                 textAlign = TextAlign.Start,
                 modifier = Modifier
-                    .padding(start = 7.dp) // Add padding and align to start
+                    .padding(start = 5.dp) // Add padding and align to start
                     .fillMaxWidth(), // Fill the width of the column
 
             )
@@ -165,13 +166,21 @@ fun AddExpense(navController: NavHostController) {
                     expanded = isExpanded,
 
                     onDismissRequest = { isExpanded = false },
+                    modifier = Modifier
+                        .background(Color.White)
                 )
 
                 {
                     list.forEachIndexed { index, text ->
 
                         DropdownMenuItem(
-                            text = { Text(text = text) },
+                            text = {
+                                Text(
+                                    text = text,
+                                    fontSize = 12.sp,
+                                    color = Color.Black
+                                )
+                            },
                             onClick = {
                                 selectedText = list[index]
                                 isExpanded = false
@@ -210,7 +219,7 @@ fun AddExpense(navController: NavHostController) {
                     text = "Add Expense",
                     color = Color.White,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 10.sp
+                    fontSize = 12.sp
                 )
             }
 

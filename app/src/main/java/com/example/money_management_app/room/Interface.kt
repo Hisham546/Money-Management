@@ -31,6 +31,9 @@ interface FinanceDao {
     @Query("SELECT * FROM ExpenseDetails LIMIT 1")
     suspend fun fetchExpense(): Expense?
 
+    @Query("UPDATE ExpenseDetails SET expense = :expense, category = :category WHERE id = :id")
+    suspend fun  updateExpense(id: Int, expense: Int, category: String)
+
     //transaction history operations
     @Insert
     suspend fun insertRecentTransaction(data: RecentTransactions)
