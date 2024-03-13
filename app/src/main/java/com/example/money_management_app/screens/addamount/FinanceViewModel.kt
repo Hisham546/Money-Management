@@ -21,10 +21,11 @@ class FinanceViewModel : ViewModel() {
     suspend fun addIncome(income: Int, category: String) {
         val checkDataExisting = MyApp.database.financeDao().fetchIncome()
         if (checkDataExisting != null) {
-            MyApp.database.financeDao().updateIncome(1, income, category)
+            val totalIncome = checkDataExisting.income + income
+            MyApp.database.financeDao().updateIncome(1, totalIncome, category)
         } else {
 
-//            Log.wtf("inside else", ".......else......")
+
 
             val data = Income(income = income, category = category)
             MyApp.database.financeDao().insertIncome(data)
@@ -45,11 +46,11 @@ class FinanceViewModel : ViewModel() {
 
         if (currentExpense != null) {
             val newTotalExpense = currentExpense.expense + expense
-          //  val data = Expense(expense = newTotalExpense, category = category)
-            MyApp.database.financeDao().updateExpense(1,newTotalExpense,category)
+
+            MyApp.database.financeDao().updateExpense(1, newTotalExpense, category)
         } else {
 
-            //  Log.wtf("inside addExpense", ".......else......")
+
 
             val data = Expense(expense = expense, category = category)
             MyApp.database.financeDao().insertExpense(data)
