@@ -1,6 +1,7 @@
 package com.example.money_management_app.screens.addamount
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +16,8 @@ class FinanceViewModel : ViewModel() {
 
     val addedIncome = MutableLiveData<Income?>()
     val addedExpense = MutableLiveData<Expense?>()
-    val transactionHistory = MutableLiveData<List<RecentTransactions>>()
+    val _transactionHistory = MutableLiveData<List<RecentTransactions>>()
+    val transactionHistory: LiveData<List<RecentTransactions>> = _transactionHistory
 
     //Income operations
     suspend fun addIncome(income: Int, category: String) {
@@ -24,7 +26,6 @@ class FinanceViewModel : ViewModel() {
             val totalIncome = checkDataExisting.income + income
             MyApp.database.financeDao().updateIncome(1, totalIncome, category)
         } else {
-
 
 
             val data = Income(income = income, category = category)
@@ -40,6 +41,7 @@ class FinanceViewModel : ViewModel() {
         }
     }
 
+
     //Expense operations
     suspend fun addExpense(expense: Int, category: String) {
         val currentExpense = MyApp.database.financeDao().fetchExpense()
@@ -49,7 +51,6 @@ class FinanceViewModel : ViewModel() {
 
             MyApp.database.financeDao().updateExpense(1, newTotalExpense, category)
         } else {
-
 
 
             val data = Expense(expense = expense, category = category)
@@ -65,17 +66,22 @@ class FinanceViewModel : ViewModel() {
         }
     }
 
+
     //transaction history operations
 
     suspend fun addRecentTransaction(amount: Int, category: String, type: String) {
 
-        val data = RecentTransactions(amount = amount, category = category, type = type)
-        MyApp.database.financeDao().insertRecentTransaction(data)
+        val newTransaction = RecentTransactions(amount = amount, category = category, type = type)
+        val currentList = _transactionHistory.value.orEmpty().toMutableList()
+        currentList.add(0, newTransaction) // Add the new transaction at the beginning of the list
+        Log.wtf("currentLis..........", "Current list: $currentList")
+        _transactionHistory.value = currentList
+        MyApp.database.financeDao().insertRecentTransaction(newTransaction)
     }
 
     fun fetchRecentTransaction() {
         viewModelScope.launch {
-            transactionHistory.value = financeDao.getAllRecentTransactions()
+            _transactionHistory.value = financeDao.getAllRecentTransactions()
 
         }
 

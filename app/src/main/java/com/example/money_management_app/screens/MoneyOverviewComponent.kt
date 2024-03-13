@@ -35,6 +35,8 @@ import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+import java.text.NumberFormat
+import java.util.Locale
 
 
 @Composable
@@ -51,6 +53,12 @@ fun MoneyOverviewBox() {
         viewModel.fetchExpense()
 
 
+    }
+
+    // Function to format a number with commas
+    fun formatNumberWithCommas(number: Int): String {
+        val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+        return numberFormat.format(number)
     }
     Column(
         modifier = Modifier
@@ -97,7 +105,7 @@ fun MoneyOverviewBox() {
 
 
                     Text(
-                        text = "₹${incomeRecord?.income ?: "0:00"}",
+                        text = "₹${formatNumberWithCommas(incomeRecord?.income ?: 0)}",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
@@ -127,7 +135,7 @@ fun MoneyOverviewBox() {
                         fontSize = 12.sp,
                     )
                     Text(
-                        text = "₹${expenseRecord?.expense ?: "0:00"}",
+                        text = "₹${formatNumberWithCommas(expenseRecord?.expense ?: 0)}",
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         fontFamily = FontFamily.Serif,
