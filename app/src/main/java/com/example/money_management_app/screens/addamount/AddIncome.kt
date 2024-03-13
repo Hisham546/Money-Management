@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -24,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -37,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -94,15 +97,31 @@ fun AddIncome(navController: NavHostController) {
         ) {
             // Your content here
             OutlinedTextField(
-                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
+                label = {
+                    Text(
+                        "Enter Amount",
+                        style = TextStyle(fontSize = 10.sp, color = Color.Black)
+                    )
+                },
                 value = amount.toString(),
                 onValueChange = { text ->
                     amount = text.toIntOrNull() ?: 0
                 },
-                textStyle = TextStyle(fontSize = 12.sp),
+                textStyle = TextStyle(fontSize = 12.sp, color = Color.Black),
                 modifier = Modifier
                     .width(250.dp)
                     .height(55.dp)
+                    .background(Color.White),
+
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Gray,
+                    unfocusedIndicatorColor = Color.Gray,
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    disabledContainerColor = Color.White
+
+                )
             )
             Text(
                 text = "Category",
@@ -115,7 +134,7 @@ fun AddIncome(navController: NavHostController) {
                     .padding(start = 5.dp) // Add padding and align to start
                     .fillMaxWidth(), // Fill the width of the column
 
-                )
+            )
 
             ExposedDropdownMenuBox(
                 expanded = isExpanded,
@@ -129,13 +148,15 @@ fun AddIncome(navController: NavHostController) {
                     shape = RoundedCornerShape(8.dp),
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        focusedContainerColor = Color.Transparent
+                        focusedIndicatorColor = Color.Gray,
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        disabledContainerColor = Color.White
                     ),
                     value = selectedText,
                     onValueChange = {},
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-                    textStyle = TextStyle(fontSize = 12.sp)
+                    textStyle = TextStyle(fontSize = 12.sp, color = Color.Black)
                 )
 
                 ExposedDropdownMenu(
@@ -161,7 +182,7 @@ fun AddIncome(navController: NavHostController) {
                     coroutineScope.launch {
                         try {
                             viewModel.addIncome(amount, selectedText)
-                            viewModel.addRecentTransaction(amount,selectedText,"income")
+                            viewModel.addRecentTransaction(amount, selectedText, "income")
                         } finally {
                             navController.navigate("home_screen")
                         }

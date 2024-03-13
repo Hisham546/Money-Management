@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -20,6 +21,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -33,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -89,15 +92,24 @@ fun AddExpense(navController: NavHostController) {
         ) {
 //        Text(text = "Amount")
             OutlinedTextField(
-                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp)) },
+                label = { Text("Enter Amount", style = TextStyle(fontSize = 10.sp, color = Color.Black)) },
                 value = amountExpense.toString(),
                 onValueChange = { text ->
                     amountExpense = text.toIntOrNull() ?: 0
                 },
-                textStyle = TextStyle(fontSize = 12.sp),
+                textStyle = TextStyle(fontSize = 12.sp, color = Color.Black),
                 modifier = Modifier
                     .width(250.dp)
-                    .height(55.dp)
+                    .height(55.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Gray,
+                    unfocusedIndicatorColor = Color.Gray,
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    disabledContainerColor = Color.White
+
+                )
 
 
             )
@@ -129,15 +141,16 @@ fun AddExpense(navController: NavHostController) {
                     shape = RoundedCornerShape(8.dp),
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        //unfocusedContainerColor = Color.White,
-                        focusedContainerColor = Color.Transparent
+                        focusedIndicatorColor = Color.Gray,
+                        focusedContainerColor = Color.White,
+                        unfocusedContainerColor = Color.White,
+                        disabledContainerColor = Color.White
                     ),
 
                     value = selectedText,
                     onValueChange = {},
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-                    textStyle = TextStyle(fontSize = 12.sp)
+                    textStyle = TextStyle(fontSize = 12.sp, color = Color.Black)
 
                 )
 
