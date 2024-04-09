@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.money_management_app.screens.addamount.AddAmount
 import com.example.money_management_app.screens.HomeScreen
+import com.example.money_management_app.screens.analysis.Analysis
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -19,6 +20,9 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = Screens.AddAmount.route) {
             AddAmount(navController)
+        }
+        composable(route=Screens.Analysis.route){
+            Analysis(navController)
         }
     }
 

@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.room.Transaction
+import com.example.money_management_app.navigation.BottomNavigationBar
 import com.example.money_management_app.room.Expense
 import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.room.Income
@@ -101,6 +102,7 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
+                    .background(Color.Red)
 
             ) {
                 Text(
@@ -184,6 +186,7 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .align(Alignment.BottomEnd) // Align the column to bottom end (bottom right)
                     .padding(16.dp)
+
             ) {
                 FloatingActionButton(
                     onClick = { navController.navigate("add_amount_screen") },
@@ -195,6 +198,7 @@ fun HomeScreen(navController: NavHostController) {
                     Icon(Icons.Filled.Add, "Floating action button.")
                 }
             }
+
         }
 
     }
