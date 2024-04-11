@@ -74,7 +74,7 @@ class FinanceViewModel : ViewModel() {
         val newTransaction = RecentTransactions(amount = amount, category = category, type = type)
         val currentList = _transactionHistory.value.orEmpty().toMutableList()
         currentList.add(0, newTransaction) // Add the new transaction at the beginning of the list
-        Log.wtf("currentLis..........", "Current list: $currentList")
+      //  Log.wtf("currentLis..........", "Current list: $currentList")
         _transactionHistory.value = currentList
         MyApp.database.financeDao().insertRecentTransaction(newTransaction)
     }

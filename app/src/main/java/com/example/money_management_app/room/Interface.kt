@@ -38,6 +38,6 @@ interface FinanceDao {
     @Insert
     suspend fun insertRecentTransaction(data: RecentTransactions)
 
-    @Query("SELECT * FROM TransactionHistoryDetails")
+    @Query("SELECT * FROM TransactionHistoryDetails ORDER BY id DESC")
     suspend fun getAllRecentTransactions(): List<RecentTransactions>
 }
