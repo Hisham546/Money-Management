@@ -102,7 +102,7 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
-                    .background(Color.Red)
+
 
             ) {
                 Text(
@@ -182,22 +182,28 @@ fun HomeScreen(navController: NavHostController) {
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd) // Align the column to bottom end (bottom right)
-                    .padding(16.dp)
-
+            Box(
+                modifier = Modifier.fillMaxSize()
             ) {
-                FloatingActionButton(
-                    onClick = { navController.navigate("add_amount_screen") },
-                    containerColor = MaterialTheme.colorScheme.background,
-                    modifier = Modifier.padding(16.dp),
-                    shape = CircleShape,
+                // Your content here
 
+                Column(
+                    modifier = Modifier
+                        .padding(bottom = 64.dp)
+                        .align(Alignment.BottomEnd)
+                ) {
+                    Spacer(modifier = Modifier.weight(1f)) // Pushes the FloatingActionButton above the BottomNavigationBar
+                    FloatingActionButton(
+                        onClick = { navController.navigate("add_amount_screen") },
+                        containerColor = MaterialTheme.colorScheme.background,
+                        modifier = Modifier.padding(16.dp),
+                        shape = CircleShape
                     ) {
-                    Icon(Icons.Filled.Add, "Floating action button.")
+                        Icon(Icons.Filled.Add, "Floating action button.")
+                    }
                 }
             }
+
 
         }
 
