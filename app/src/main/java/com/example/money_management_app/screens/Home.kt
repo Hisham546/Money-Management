@@ -2,6 +2,7 @@ package com.example.money_management_app.screens
 
 import android.graphics.drawable.Icon
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -44,7 +45,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.room.Transaction
+import com.example.money_management_app.R
 import com.example.money_management_app.navigation.BottomNavigationBar
 import com.example.money_management_app.room.Expense
 import com.example.money_management_app.room.MyApp
@@ -143,13 +148,15 @@ fun HomeScreen(navController: NavHostController) {
                                     modifier = Modifier
                                         .size(35.dp)
                                         .clip(RoundedCornerShape(18.dp))
-                                        .background(if (transaction.type == "income") Color.Green else Color.Red)
+
                                 ) {
-                                    Icon(
-                                        if (transaction.type == "income") Icons.Rounded.KeyboardArrowUp else Icons.Rounded.KeyboardArrowDown,
-                                        contentDescription = "Floating action button.",
-                                        tint = Color.White,
-                                        modifier = Modifier.padding(8.dp)
+                                    Image(
+                                        painter = painterResource(id = if (transaction.type == "income") R.drawable.trending_up else R.drawable.trending_down),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(30.dp),
+                                        contentScale = ContentScale.Fit,
+                                        colorFilter = ColorFilter.tint(if (transaction.type == "income") Color.Green else Color.Red)
                                     )
                                 }
                                 Text(
