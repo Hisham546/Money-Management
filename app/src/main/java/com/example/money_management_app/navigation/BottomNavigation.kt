@@ -1,5 +1,6 @@
 package com.example.money_management_app.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -22,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -40,16 +42,16 @@ fun BottomNavigationBar(navController: NavHostController) {
             unselectedIcon = Icons.Outlined.Home,
             hasNews = false,
         ),
-        BottomNavigationItem(
-            title = "Analysis",
-//            selectedIcon = R.drawable.analysis,
-//            unselectedIcon = R.drawable.analysis,
-
-            selectedIcon = Icons.Filled.Info,
-            unselectedIcon = Icons.Outlined.Info,
-
-            hasNews = false,
-        ),
+//        BottomNavigationItem(
+//            title = "Analysis",
+////            selectedIcon = R.drawable.analysis,
+////            unselectedIcon = R.drawable.analysis,
+//
+//            selectedIcon = Icons.Filled.Info,
+//            unselectedIcon = Icons.Outlined.Info,
+//
+//            hasNews = false,
+//        ),
         BottomNavigationItem(
             title = "Settings",
 //            selectedIcon = R.drawable.analysis,
@@ -69,6 +71,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     NavigationBar(
         modifier = Modifier
             .height(63.dp)
+            .background(Color.Black)
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
@@ -106,6 +109,8 @@ fun BottomNavigationBar(navController: NavHostController) {
                             contentDescription = item.title,
                             modifier = Modifier
                                 .size(20.dp)
+
+
                         )
                     }
                 }

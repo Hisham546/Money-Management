@@ -16,7 +16,7 @@ class MyApp : Application() {
             "app_database"
 
         ).fallbackToDestructiveMigration()
-            .allowMainThreadQueries()
+//            .allowMainThreadQueries()
             .build()
     }
 }

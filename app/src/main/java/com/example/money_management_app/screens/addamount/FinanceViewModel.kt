@@ -45,11 +45,13 @@ class FinanceViewModel : ViewModel() {
     //Expense operations
     suspend fun addExpense(expense: Int, category: String) {
         val currentExpense = MyApp.database.financeDao().fetchExpense()
-
-        if (currentExpense != null) {
+        val minusIncome = MyApp.database.financeDao().fetchIncome()
+        Log.d("FinanceOperation", "Minus Income: $minusIncome")
+        if (currentExpense != null ) {
             val newTotalExpense = currentExpense.expense + expense
-
+           val newIncome = (minusIncome?.income?:0 ) - expense
             MyApp.database.financeDao().updateExpense(1, newTotalExpense, category)
+            MyApp.database.financeDao().updateIncome(1, newIncome, category)
         } else {
 
 

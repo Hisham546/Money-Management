@@ -82,7 +82,8 @@ fun HomeScreen(navController: NavHostController) {
 
     }
 
-    Column(modifier = Modifier) {
+    Column(modifier = Modifier
+        .background(Color.White)) {
 
 
         Column(
@@ -107,6 +108,7 @@ fun HomeScreen(navController: NavHostController) {
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
+                    .background(Color.White)
 
 
             ) {
