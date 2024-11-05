@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.money_management_app.ui.theme.VanillaCream
 import com.example.money_management_app.ui.theme.WhiteShade
 
 @Composable
@@ -37,7 +38,7 @@ fun AddAmount(navController: NavHostController) {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(Color.White)
+            .background(VanillaCream)
     ) {
         Row(
             modifier = Modifier

@@ -63,6 +63,7 @@ import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+import com.example.money_management_app.ui.theme.SkyBlue
 import com.example.money_management_app.ui.theme.VanillaCream
 import com.example.money_management_app.ui.theme.VanillaLight
 import kotlinx.coroutines.launch
@@ -73,6 +74,15 @@ fun HomeScreen(navController: NavHostController) {
 
 
     val recentTransactionList by viewModel.transactionHistory.observeAsState()
+    @Composable
+    fun VerticalLine() {
+        Box(
+            modifier = Modifier
+                .width(1.dp) // Width of the line
+                .height(30.dp) // Height of the line
+                .background(VanillaCream) // Color of the line
+        )
+    }
 
 
 
@@ -93,11 +103,23 @@ fun HomeScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
                 .background(VanillaCream),
-            verticalArrangement = Arrangement.Center,
+
             horizontalAlignment = Alignment.CenterHorizontally
         )
 
         {
+            Box(modifier = Modifier
+                .height(100.dp)
+                .fillMaxWidth()
+                .background(Color.Transparent),
+                contentAlignment = Alignment.Center
+
+            ){
+           Text(text = "Hi, Welcome Back",
+               color = Color.Black,
+               fontSize = 17.sp,
+               fontWeight = FontWeight.Bold)
+            }
             MoneyOverviewBox()
 
         }
@@ -130,8 +152,8 @@ fun HomeScreen(navController: NavHostController) {
                 Text(
                     text = "Recent transactions",
                     color = Color.Black,
-                    fontWeight = FontWeight.Medium,
-                    fontFamily = FontFamily.SansSerif,
+
+                    fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp
                 )
 
@@ -141,11 +163,11 @@ fun HomeScreen(navController: NavHostController) {
                     items(recentTransactionList.orEmpty()) { transaction ->
                         ElevatedCard(
                             elevation = CardDefaults.cardElevation(
-                                defaultElevation = 1.dp
+                                defaultElevation = 0.dp
                             ),
                             colors = CardDefaults.cardColors(
-                                containerColor = Color.White,
-                                contentColor = Color.White
+                                containerColor = VanillaLight,
+                                contentColor = VanillaLight
                             ),
 
                             modifier = Modifier
@@ -173,33 +195,34 @@ fun HomeScreen(navController: NavHostController) {
                                         painter = painterResource(id = if (transaction.type == "income") R.drawable.trending_up else R.drawable.trending_down),
                                         contentDescription = null,
                                         modifier = Modifier
-                                            .size(30.dp),
+                                            .size(20.dp),
                                         contentScale = ContentScale.Fit,
                                         colorFilter = ColorFilter.tint(if (transaction.type == "income") Color.Green else Color.Red)
                                     )
                                 }
+                                VerticalLine()
                                 Text(
                                     transaction.category,
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = Color.Black,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Monospace,
+
+                                    fontWeight = FontWeight.Medium,
                                     fontSize = with(LocalConfiguration.current) {
                                         when (smallestScreenWidthDp) {
-                                            in 0..600 -> 16.sp // Small screens
-                                            in 601..720 -> 18.sp // Medium screens
-                                            else -> 20.sp // Large screens
+                                            in 0..600 -> 12.sp // Small screens
+                                            in 601..720 -> 14.sp // Medium screens
+                                            else -> 16.sp // Large screens
                                         }
                                     }
                                 )
-
+                                VerticalLine()
                                 Text(
-                                    text = "₹${transaction.amount}",
+                                    text =  if (transaction.type == "income") "₹${transaction.amount}" else "-₹${transaction.amount}",
                                     style = MaterialTheme.typography.bodyMedium,
-                                    color = if (transaction.type == "income") Color.Green else Color.Red,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = FontFamily.Monospace,
-                                    fontSize = 15.sp,
+                                    color = if (transaction.type == "income") Color.Black else SkyBlue,
+                                    fontWeight = FontWeight.Medium,
+
+                                    fontSize = 13.sp,
                                 )
 
                             }

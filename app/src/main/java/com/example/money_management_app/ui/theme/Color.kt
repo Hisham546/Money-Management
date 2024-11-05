@@ -14,4 +14,4 @@ val WhiteShade = Color(0xFFF5F5F5)
 val VanillaCream =Color(0xFF00d09e)
 val VanillaLight=Color(0xFFf1fff2)
 val VanillaBottom=Color(0xFFdff6e2)
-
+val SkyBlue=Color(0xFF2e7ee3)

@@ -94,7 +94,7 @@ fun BottomNavigationBar(navController: NavHostController) {
 
     NavigationBar(
         modifier = Modifier
-            .height(67.dp),
+            .height(75.dp),
         containerColor = Color.Transparent,
 
 
@@ -137,11 +137,15 @@ fun BottomNavigationBar(navController: NavHostController) {
                                     .size(25.dp)
 
 
+
                             )
 
                     }
 
-                }
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = VanillaCream // Remove default indicator color
+                )
             )
         }
     }

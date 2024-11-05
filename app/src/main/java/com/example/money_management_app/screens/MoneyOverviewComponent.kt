@@ -36,6 +36,7 @@ import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+import com.example.money_management_app.ui.theme.SkyBlue
 import com.example.money_management_app.ui.theme.VanillaCream
 import java.text.NumberFormat
 import java.util.Locale
@@ -55,6 +56,15 @@ fun MoneyOverviewBox() {
         viewModel.fetchExpense()
 
 
+    }
+    @Composable
+    fun VerticalLine() {
+        Box(
+            modifier = Modifier
+                .width(2.dp) // Width of the line
+                .height(50.dp) // Height of the line
+                .background(Color.White) // Color of the line
+        )
     }
 
     // Function to format a number with commas
@@ -80,12 +90,17 @@ fun MoneyOverviewBox() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
 
-        ) {
+        )
+
+        {
+
+
+
             Box(
                 modifier = Modifier
                     .height(90.dp)
                     .width(140.dp)
-                    .background(Color.White, shape = RoundedCornerShape(10.dp)),
+                    .background(VanillaCream),
                 contentAlignment = Alignment.Center
 
 
@@ -99,9 +114,8 @@ fun MoneyOverviewBox() {
 
 
                     Text(
-                        text = "Income",
-                        color = Color.Green,
-                        fontWeight = FontWeight.Bold,
+                        text = "Total Balance",
+                        color = Color.Black,
                         fontFamily = FontFamily.Serif,
                         fontSize = 12.sp,
                     )
@@ -109,19 +123,19 @@ fun MoneyOverviewBox() {
 
                     Text(
                         text = "₹${formatNumberWithCommas(incomeRecord?.income ?: 0)}",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 17.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
 
                         )
                 }
             }
+            VerticalLine()
             Box(
                 modifier = Modifier
                     .height(90.dp)
                     .width(140.dp)
-                    .background(Color.White, shape = RoundedCornerShape(10.dp)),
+                    .background(VanillaCream),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -130,19 +144,17 @@ fun MoneyOverviewBox() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     Text(
-                        text = "Expense",
-
-                        color = Color.Red,
-                        fontWeight = FontWeight.Bold,
+                        text = "Total Expense",
+                        color = Color.Black,
                         fontFamily = FontFamily.Serif,
                         fontSize = 12.sp,
                     )
                     Text(
-                        text = "₹${formatNumberWithCommas(expenseRecord?.expense ?: 0)}",
-                        color = Color.Black,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif,
-                        fontSize = 17.sp,
+                        text = " - ₹${formatNumberWithCommas(expenseRecord?.expense ?: 0)}",
+                        color = SkyBlue,
+                        fontWeight = FontWeight.SemiBold,
+
+                        fontSize = 20.sp,
 
 
                         )

@@ -51,6 +51,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
+import com.example.money_management_app.ui.theme.VanillaBottom
+import com.example.money_management_app.ui.theme.VanillaCream
+import com.example.money_management_app.ui.theme.VanillaLight
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -83,7 +86,7 @@ fun AddIncome(navController: NavHostController) {
             defaultElevation = 1.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color.White, //Card background color
+            containerColor = VanillaLight, //Card background color
             contentColor = Color.White  //Card content color,e.g.text
         ),
         modifier = Modifier
@@ -99,7 +102,7 @@ fun AddIncome(navController: NavHostController) {
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Your content here
+
             OutlinedTextField(
                 label = {
                     Text(
@@ -113,17 +116,17 @@ fun AddIncome(navController: NavHostController) {
                 },
                 textStyle = TextStyle(fontSize = 12.sp, color = Color.Black),
                 modifier = Modifier
-                    .width(250.dp)
+                    .width(300.dp)
                     .height(55.dp)
-                    .background(Color.White),
+                    .background(Color.Transparent),
 
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Gray,
-                    unfocusedIndicatorColor = Color.Gray,
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    disabledContainerColor = Color.White
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    focusedContainerColor = VanillaBottom,
+                    unfocusedContainerColor = VanillaBottom,
+                    disabledContainerColor = Color.Red
 
                 )
             )
@@ -157,9 +160,9 @@ fun AddIncome(navController: NavHostController) {
                     shape = RoundedCornerShape(8.dp),
                     colors = ExposedDropdownMenuDefaults.textFieldColors(
                         unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Gray,
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
+                        focusedIndicatorColor = Color.Transparent,
+                        focusedContainerColor = VanillaBottom,
+                        unfocusedContainerColor = VanillaBottom,
                         disabledContainerColor = Color.White
                     ),
                     value = selectedText,
@@ -172,7 +175,7 @@ fun AddIncome(navController: NavHostController) {
                     expanded = isExpanded,
                     onDismissRequest = { isExpanded = false },
                     modifier = Modifier
-                        .background(Color.White)
+                        .background(VanillaBottom)
                 ) {
                     list.forEachIndexed { index, text ->
                         DropdownMenuItem(
@@ -206,7 +209,7 @@ fun AddIncome(navController: NavHostController) {
                 modifier = Modifier
                     .height(50.dp)
                     .width(280.dp),
-                colors = ButtonDefaults.buttonColors(Color.Black)
+                colors = ButtonDefaults.buttonColors(VanillaCream)
             ) {
                 Text(
                     text = "Add Income",
