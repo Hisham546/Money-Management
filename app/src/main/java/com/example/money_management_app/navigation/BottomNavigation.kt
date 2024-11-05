@@ -108,7 +108,7 @@ fun BottomNavigationBar(navController: NavHostController) {
 
                         0 -> navController.navigate("home_screen")
                         1 -> navController.navigate("add_amount_screen")
-                        1 -> navController.navigate("settings")
+                        2 -> navController.navigate("settings")
                     }
                 },
 //                label = {
