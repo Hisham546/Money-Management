@@ -63,6 +63,8 @@ import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.room.Income
 import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+import com.example.money_management_app.ui.theme.VanillaCream
+import com.example.money_management_app.ui.theme.VanillaLight
 import kotlinx.coroutines.launch
 
 @Composable
@@ -83,14 +85,14 @@ fun HomeScreen(navController: NavHostController) {
     }
 
     Column(modifier = Modifier
-        .background(Color.White)) {
+        .background(VanillaCream)) {
 
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.5f)
-                .background(BlackShade),
+                .fillMaxHeight(0.4f)
+                .background(VanillaCream),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         )
@@ -102,13 +104,26 @@ fun HomeScreen(navController: NavHostController) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 36.dp,
+                        topEnd = 36.dp,
+                        bottomEnd = 0.dp,
+                        bottomStart = 0.dp,
+                    ))
+            .background(VanillaLight),
+
+            contentAlignment = Alignment.Center
 
         ) {
             Column(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
+
+                    .fillMaxHeight(0.7f)
+
                     .padding(16.dp)
-                    .background(Color.White)
+                    .background(VanillaLight)
+
 
 
             ) {
@@ -132,9 +147,11 @@ fun HomeScreen(navController: NavHostController) {
                                 containerColor = Color.White,
                                 contentColor = Color.White
                             ),
+
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(90.dp)
+
                                 .padding(6.dp),
 
                             shape = RoundedCornerShape(8.dp),
@@ -191,27 +208,28 @@ fun HomeScreen(navController: NavHostController) {
                 }
             }
 
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                // Your content here
-
-                Column(
-                    modifier = Modifier
-                        .padding(bottom = 64.dp)
-                        .align(Alignment.BottomEnd)
-                ) {
-                    Spacer(modifier = Modifier.weight(1f)) // Pushes the FloatingActionButton above the BottomNavigationBar
-                    FloatingActionButton(
-                        onClick = { navController.navigate("add_amount_screen") },
-                        containerColor = MaterialTheme.colorScheme.background,
-                        modifier = Modifier.padding(16.dp),
-                        shape = CircleShape
-                    ) {
-                        Icon(Icons.Filled.Add, "Floating action button.")
-                    }
-                }
-            }
+//            Box(
+//                modifier = Modifier.fillMaxSize()
+//                    .background(color = Color.Black)
+//            ) {
+//                // Your content here
+//
+//                Column(
+//                    modifier = Modifier
+//                        .padding(bottom = 64.dp)
+//                        .align(Alignment.BottomEnd)
+//                ) {
+//                    Spacer(modifier = Modifier.weight(1f)) // Pushes the FloatingActionButton above the BottomNavigationBar
+//                    FloatingActionButton(
+//                        onClick = { navController.navigate("add_amount_screen") },
+//                        containerColor = MaterialTheme.colorScheme.background,
+//                        modifier = Modifier.padding(16.dp),
+//                        shape = CircleShape
+//                    ) {
+//                        Icon(Icons.Filled.Add, "Floating action button.")
+//                    }
+//                }
+//            }
 
 
         }

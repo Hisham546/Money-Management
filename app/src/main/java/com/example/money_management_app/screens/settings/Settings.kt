@@ -15,7 +15,7 @@ fun Settings(navController: NavController) {
 
     Column (modifier = Modifier
         .fillMaxSize()
-        .background(Color.Red)
+        .background(Color.White)
 
     ){
 

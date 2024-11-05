@@ -15,7 +15,7 @@ fun Analysis (navController: NavController) {
 
 Column (modifier = Modifier
     .fillMaxSize()){
-    Text(text = "Analysis",
+    Text(text = "abcd",
         fontSize = 15.sp,
         )
     Row {

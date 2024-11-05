@@ -11,3 +11,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 val BlackShade =Color(0xFF1b1c1d)
 val WhiteShade = Color(0xFFF5F5F5)
+val VanillaCream =Color(0xFF00d09e)
+val VanillaLight=Color(0xFFf1fff2)
+val VanillaBottom=Color(0xFFdff6e2)
+

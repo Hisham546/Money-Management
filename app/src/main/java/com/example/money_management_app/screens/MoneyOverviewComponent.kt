@@ -25,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +36,7 @@ import com.example.money_management_app.room.Income
 import com.example.money_management_app.room.MyApp
 import com.example.money_management_app.screens.addamount.FinanceViewModel
 import com.example.money_management_app.ui.theme.BlackShade
+import com.example.money_management_app.ui.theme.VanillaCream
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -63,8 +65,9 @@ fun MoneyOverviewBox() {
     Column(
         modifier = Modifier
             .fillMaxHeight(0.5f)
-            .fillMaxWidth()
-            .background(BlackShade),
+            .width(350.dp)
+            .background(VanillaCream)
+            .clip(RoundedCornerShape(19.dp)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -73,7 +76,7 @@ fun MoneyOverviewBox() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(220.dp)
-                .background(BlackShade),
+                .background(VanillaCream),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
 
